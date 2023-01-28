@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder="templates")
@@ -14,10 +14,24 @@ class Article(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-@app.route("/")
+@app.route("/", methods=["GET","POST"])
 def bbs():
+
+    if request.method == "POST":
+        # Create Sample Data
+        username = request.form["name"]
+        email = request.form["email"]
+        post = request.form["message"]
+
+        article = Article(username=username, email=email, post=post)
+
+        # Insert Article Data to DB
+        db.session.add(article)
+        db.session.commit()
+
     title = "Flaskで作る掲示板"
-    return render_template("index.html", title=title)
+    articles = Article.query.all()
+    return render_template("index.html", title=title, articles=articles)
 
 if __name__ == "__main__":
     app.run(debug=True)
