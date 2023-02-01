@@ -11,23 +11,53 @@
 
 <body>
 
-<p>{{title}}</p>
+<div class="container">
+    <p>{{title}}</p>
 
-<!--自分自身に飛ぶ場合は action="sample.cgi"は不要-->
-<form method="POST">
-    <p>お名前：<input type="text" name="name"></p>
-    <p>メールアドレス：<input type="text" name="email"></p>
-    <textarea name="message" rows=4 cols=40></textarea>
-    <p><input type="submit" value="送信する"></p>
-</form>
+    <!--自分自身に飛ぶ場合は action="sample.cgi"は不要-->
+    <form method="POST">
+<!--        <p>お名前：<input type="text" name="name"></p>-->
+<!--        <p>メールアドレス：<input type="text" name="email"></p>-->
+<!--        <textarea name="message" rows=4 cols=40></textarea>-->
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">お名前</label>
+            <input name="name"　type="text" class="form-control" id="exampleFormControlInput1" placeholder="花子">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">メールアドレス</label>
+            <input name="email" type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">メッセージ</label>
+            <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+<!--        <p><input type="submit" value="送信する"></p>-->
+        <button input type="submit" class="btn btn-success">送信する</button>
+    </form>
 
-{% for i in articles %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">名前</th>
+            <th scope="col">メールアドレス</th>
+            <th scope="col">メッセージ</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in articles %}
+        <tr>
+            <th scope="row">{{ i.id }}</th>
+            <td>{{ i.username }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.post }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    {{ i.username }}
-    {{ i.email }}
-    {{ i.post }}
 
-{% endfor %}
+</div>
 
 </body>
 </html>
